@@ -5,9 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
-@Disabled
-@Autonomous (name = "DoNotUseThisIsTest")
-public class TestLeft extends LinearOpMode {
+
+@Autonomous (name = "GrabBlockAndGoBlue")
+public class GrabBlockAndGoBlue extends LinearOpMode {
     DcMotor left, right;
     Servo wrist,flip;
     @Override
@@ -21,10 +21,36 @@ public class TestLeft extends LinearOpMode {
 
         ResetEncoder();
         waitForStart();
-        DriveForwardDistance(TestSpeed,TestSpeed,100,100);
+        FlipDown();
+        WristOpen();
+        DriveForwardDistance(IAmSpeed, IAmSpeed, 660, 660);
         ResetEncoder();
-        TurnLeftDistance(TestSpeed,TestSpeed,300,-300);
-
+        WristClose();
+        TurnLeftDistance(TestSpeed, TestSpeed, 340, -340);
+        ResetEncoder();
+        DriveForwardDistance(IAmSpeed,IAmSpeed, 1000, 1000);
+        DriveBackwardDistance(TestSpeed,TestSpeed,200,200);
+        ResetEncoder();
+        WristOpenKinda();
+        TurnLeftDistance(TestSpeed,TestSpeed, 590, -590);
+        ResetEncoder();
+        WristClose();
+        DriveForwardDistance(IAmSpeed,IAmSpeed, 1560, 1570);
+        ResetEncoder();
+        TurnLeftDistance(TestSpeed,TestSpeed, 350,-350);
+        ResetEncoder();
+        WristOpen();
+        DriveForwardDistance(TestSpeed,TestSpeed,200,200);
+        WristClose();
+        ResetEncoder();
+        TurnLeftDistance(TestSpeed,TestSpeed, 355,-355);
+        ResetEncoder();
+        DriveForwardDistance(IAmSpeed,IAmSpeed,1500,1500);
+        ResetEncoder();
+        WristOpenKinda();
+        TurnLeftDistance(TestSpeed,TestSpeed,600,-600);
+        ResetEncoder();
+        DriveForwardDistance(TestSpeed,TestSpeed,300,300);
     }
     double TestSpeed = 0.5;
     double IAmSpeed = 1;
@@ -40,7 +66,7 @@ public class TestLeft extends LinearOpMode {
         left.setTargetPosition(Cur_Location2+distance2);
         right.setPower(power1);
         left.setPower(power2);
-        while (opModeIsActive() && (left.getCurrentPosition()-1)<distance2){
+        while (opModeIsActive() && (right.getCurrentPosition())>distance2){
 
             telemetry.addData("d1", distance1);
             telemetry.addData("d2", distance2);
@@ -66,7 +92,7 @@ public class TestLeft extends LinearOpMode {
         left.setTargetPosition(Cur_Location2+distance2);
         right.setPower(power1);
         left.setPower(power2);
-        while (opModeIsActive() && (right.getCurrentPosition())>distance2){
+        while (opModeIsActive() && (left.getCurrentPosition())<distance2){
 
             telemetry.addData("d1", distance1);
             telemetry.addData("d2", distance2);
