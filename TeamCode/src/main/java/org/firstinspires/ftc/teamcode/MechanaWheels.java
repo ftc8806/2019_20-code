@@ -7,9 +7,9 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp (name = "MechanaWheels")
 public class MechanaWheels extends OpMode {
-
     DcMotor fr, fl, br, bl;
     @Override
+
     public void init() {
         fr = hardwareMap.dcMotor.get("fright");
         fl = hardwareMap.dcMotor.get("fleft");
@@ -21,19 +21,18 @@ public class MechanaWheels extends OpMode {
 
     }
 
-    //fr and fl are faster
+
     @Override
     public void loop() {
 
-        double backspeed = 1;
-        double frontspeed = .
-        [-]5;
+        double speed = 1;
+       // double frontspeed = .5;
         //forward
        //if (gamepad1.right_stick_y > 0) {
-            fr.setPower(gamepad1.right_stick_y*frontspeed);
-            fl.setPower(gamepad1.right_stick_y*frontspeed);
-            br.setPower(gamepad1.right_stick_y*backspeed);
-            bl.setPower(gamepad1.right_stick_y*backspeed);
+            fr.setPower(gamepad1.right_stick_y*speed);
+            fl.setPower(gamepad1.right_stick_y*speed);
+            br.setPower(gamepad1.right_stick_y*speed);
+            bl.setPower(gamepad1.right_stick_y*speed);
         //}
         //backwards
        // else if (gamepad1.right_stick_y < 0) {
@@ -43,18 +42,19 @@ public class MechanaWheels extends OpMode {
             //bl.setPower(-backspeed);
         //}
         //straferight
+        //straferight
          if (gamepad1.left_stick_x < 0) {
-            fr.setPower(-frontspeed*2);
-            fl.setPower(frontspeed*2);
-            br.setPower(backspeed);
-            bl.setPower(-backspeed);
+            fr.setPower(-speed/* *2 */);
+            fl.setPower(speed/* *2 */);
+            br.setPower(speed);
+            bl.setPower(-speed);
         }
         //strafeleft
         else if (gamepad1.left_stick_x > 0) {
-            fr.setPower(frontspeed*2);
-            fl.setPower(-frontspeed*2);
-            br.setPower(-backspeed);
-            bl.setPower(backspeed);
+            fr.setPower(speed/* *2 */);
+            fl.setPower(-speed/* *2 */);
+            br.setPower(-speed);
+            bl.setPower(speed);
         }
         //NW
 //        else if (gamepad1.right_stick_y > 0 & gamepad1.right_stick_x > 0){
@@ -78,17 +78,17 @@ public class MechanaWheels extends OpMode {
 //        }
         // turn r
          if (gamepad1.right_bumper) {
-            fl.setPower(-frontspeed*2);
-            bl.setPower(-backspeed);
-            fr.setPower(frontspeed*2);
-            br.setPower(backspeed);
+            fl.setPower(-speed/* *2 */);
+            bl.setPower(-speed);
+            fr.setPower(speed/* *2 */);
+            br.setPower(speed);
         }
         //turn l
         else if (gamepad1.left_bumper) {
-            fl.setPower(frontspeed*2);
-            bl.setPower(backspeed);
-            fr.setPower(-frontspeed*2);
-            br.setPower(-backspeed);
+            fl.setPower(speed/* *2 */);
+            bl.setPower(speed);
+            fr.setPower(-speed/* *2 */);
+            br.setPower(-speed);
             }
         // no move
 //        else {
