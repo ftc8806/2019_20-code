@@ -11,6 +11,6 @@ public class Move1Motor extends OpMode {
         lift = hardwareMap.dcMotor.get("lift");
     }
     public void loop () {
-       lift.setPower(gamepad1.right_stick_y*.25);
+       lift.setPower(gamepad1.right_stick_y);
     }
 }
