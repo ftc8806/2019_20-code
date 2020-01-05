@@ -31,6 +31,9 @@ public class MecanumWheels extends OpMode {
         fr.setDirection(DcMotorSimple.Direction.REVERSE);
         br.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         // MAKE SURE YOU REMOVE THIS
         //extend.setPosition(0);
     }
@@ -133,10 +136,21 @@ public class MecanumWheels extends OpMode {
         }
 
         /**Lift**/
-        if (lift.getCurrentPosition() > 999 && gamepad2.right_stick_y > 0.05){
-            lift.setPower(gamepad2.right_stick_y * -speed);
-        } else if (lift.getCurrentPosition() < 0 && gamepad2.right_stick_y < -0.05) {
-            lift.setPower(gamepad2.right_stick_y);
+        if (lift.getCurrentPosition() > -2350 && gamepad2.right_stick_y < 0){
+            lift.setPower(-gamepad2.right_stick_y);
+            telemetry.addData("lift", "should be going up");
+            telemetry.addData("right_stick_y", gamepad2.right_stick_y);
+            telemetry.addData("lift.getPower():", lift.getPower());
+        } else if (lift.getCurrentPosition() < 0 && gamepad2.right_stick_y > 0) {
+            lift.setPower(-gamepad2.right_stick_y);
+            telemetry.addData("lift", "should be going down");
+            telemetry.addData("right_stick_y", gamepad2.right_stick_y);
+            telemetry.addData("lift.getPower():", lift.getPower());
+        } else {
+            lift.setPower(0);
+            telemetry.addData("lift", "should be going nowhere");
+            telemetry.addData("right_stick_y", gamepad2.right_stick_y);
+            telemetry.addData("lift.getPower():", lift.getPower());
         }
 
         /**Claw**/
@@ -155,22 +169,32 @@ public class MecanumWheels extends OpMode {
                 // In
                 extend.setPower(-1);
             } else {
+                // No
                 extend.setPower(0);
             }
+
         /**Latch**/
-            if (gamepad2.left_stick_button) {
+            if (gamepad2.y) {
                 //
                 latch.setPosition(0.8);
             }
-            else if (gamepad2.right_stick_button) {
+            else if (gamepad2.a) {
                 //
                 latch.setPosition(0.2);
             }
 
+        // BIG RED EMERGENCY BOOBOO BUTTON
+        if (gamepad1.start && gamepad2.start) {
+            lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+
         telemetry.addData("right stick x", gamepad1.right_stick_x);
         telemetry.addData("right stick y", gamepad1.right_stick_y);
-        telemetry.addData("lift", gamepad2.right_stick_y);
 
+        //telemetry.addData("lift", gamepad2.right_stick_y);
+
+        telemetry.addData("lift pos", lift.getCurrentPosition());
         telemetry.addData("latch", latch.getPosition());
         telemetry.addData("wrist", wrist.getPosition());
 
