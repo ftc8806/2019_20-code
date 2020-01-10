@@ -19,10 +19,11 @@ public class StrafeRightAuto extends LinearOpMode{
         bl.setDirection(DcMotorSimple.Direction.REVERSE);
         ResetEncoder();
         waitForStart();
-        //Change Forward Distance Short = 200 Long = 700
-        DriveForwardDistance(TestSpeed, 700);
-        //sleep(1000);
-        //StrafeRightDistance(TestSpeed, 900);
+        //Change Forward Distance Short = 200 Long = 1600
+        //DriveForward(TestSpeed);
+        DriveForwardDistance(TestSpeed, 1600);
+        //wait(2000);
+        StrafeRightDistance(TestSpeed, 1200);
 
 
     }
@@ -54,7 +55,10 @@ public class StrafeRightAuto extends LinearOpMode{
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        DriveForward(power);
+        fr.setPower(power);
+        fl.setPower(power);
+        br.setPower(power);
+        bl.setPower(power);
 
         while (fr.isBusy() && fl.isBusy() && br.isBusy() && bl.isBusy()){
         telemetry.addData("distance", distance);

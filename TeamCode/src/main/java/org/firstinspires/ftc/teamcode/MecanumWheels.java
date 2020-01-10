@@ -43,25 +43,18 @@ public class MecanumWheels extends OpMode {
     public void loop() {
 
         double speed = 1;
-        double halfspeed = .5;
+        double halfspeed = .75;
         /**Left Stick**/
         fr.setPower(gamepad1.left_stick_y * speed);
         fl.setPower(gamepad1.left_stick_y * speed);
         br.setPower(gamepad1.left_stick_y * speed);
         bl.setPower(gamepad1.left_stick_y * speed);
 
-        if (gamepad1.left_stick_x < 0) {
-            fr.setPower(gamepad1.left_stick_x * -speed);
-            fl.setPower(gamepad1.left_stick_x * speed);
-            br.setPower(gamepad1.left_stick_x * speed);
-            bl.setPower(gamepad1.left_stick_x * -speed);
-        }
-        else if (gamepad1.left_stick_x > 0) {
-            fr.setPower(gamepad1.left_stick_x * -speed);
-            fl.setPower(gamepad1.left_stick_x * speed);
-            br.setPower(gamepad1.left_stick_x * speed);
-            bl.setPower(gamepad1.left_stick_x * -speed);
-        }
+        fr.setPower(gamepad1.left_stick_x * speed);
+        fl.setPower(gamepad1.left_stick_x * -speed);
+        br.setPower(gamepad1.left_stick_x * -speed);
+        bl.setPower(gamepad1.left_stick_x * speed);
+
 //            //North
 //            if (gamepad1.dpad_up) {
 //                fl.setPower(speed);
@@ -99,22 +92,22 @@ public class MecanumWheels extends OpMode {
 
         /**Right Stick**/
         //NW
-        if (gamepad1.right_stick_y > 0 & gamepad1.right_stick_x > 0) {
+        if (gamepad1.right_stick_y > 0 & gamepad1.right_stick_x < 0) {
             fl.setPower(speed);
             br.setPower(speed);
         }
         //NE
-        else if (gamepad1.right_stick_y > 0 & gamepad1.right_stick_x < 0) {
+        else if (gamepad1.right_stick_y > 0 & gamepad1.right_stick_x > 0) {
             fr.setPower(speed);
             bl.setPower(speed);
         }
         //SW
-        else if (gamepad1.right_stick_y < 0 & gamepad1.right_stick_x < 0) {
+        else if (gamepad1.right_stick_y < 0 & gamepad1.right_stick_x > 0) {
             fl.setPower(-speed);
             br.setPower(-speed);
         }
         //SE
-        else if (gamepad1.right_stick_y < 0 & gamepad1.right_stick_x > 0) {
+        else if (gamepad1.right_stick_y < 0 & gamepad1.right_stick_x < 0) {
             fr.setPower(-speed);
             bl.setPower(-speed);
         }
@@ -188,7 +181,8 @@ public class MecanumWheels extends OpMode {
             lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
-
+        telemetry.addData("left stick x", gamepad1.left_stick_x);
+        telemetry.addData("left stick y", gamepad1.left_stick_y);
         telemetry.addData("right stick x", gamepad1.right_stick_x);
         telemetry.addData("right stick y", gamepad1.right_stick_y);
 
