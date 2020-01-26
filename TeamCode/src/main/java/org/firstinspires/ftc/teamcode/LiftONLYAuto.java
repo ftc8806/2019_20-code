@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
-
-@Autonomous(name = "GrabBlockRed")
-public class GrabBlocksAuto extends LinearOpMode {
+@Disabled
+@Autonomous(name = "LIFTONLY")
+public class LiftONLYAuto extends LinearOpMode {
     DcMotor fr, fl, br, bl, lift;
     Servo latch,wrist;
     @Override
@@ -25,26 +26,20 @@ public class GrabBlocksAuto extends LinearOpMode {
         bl.setDirection(DcMotorSimple.Direction.REVERSE);
         ResetEncoder();
         waitForStart();
-        DriveForwardDistance(TestSpeed, 1350);
-        StrafeLeftDistance(TestSpeed,200);
-        wrist.setPosition(0);
-        sleep(1000);
-        DriveForwardDistance(TestSpeed,500);
-        wrist.setPosition(1);
-        sleep(1000);
-        DriveForwardDistance(TestSpeed,-500);
-        StrafeRightDistance(TestSpeed, 2900); //2900 original
-        DriveForwardDistance(TestSpeed, 400);
-        //LiftUp(LiftSpeed, 700);
-        wrist.setPosition(0);
-        sleep(1000);
-        DriveForwardDistance(TestSpeed,-500);
-        wrist.setPosition(1);
-        sleep(1000);
-        StrafeLeftDistance(TestSpeed,900);
-        DriveForwardDistance(TestSpeed,100);
-
-       // LiftUp(LiftSpeed,-300);
+//        DriveForwardDistance(TestSpeed, 1400);
+//        StrafeLeftDistance(TestSpeed,200);
+//        wrist.setPosition(0);
+//        sleep(1000);
+//        DriveForwardDistance(TestSpeed,500);
+//        wrist.setPosition(1);
+//        sleep(1000);
+//        //LiftUp(LiftSpeed, 100);
+//        DriveForwardDistance(TestSpeed,-500);
+//        StrafeRightDistance(TestSpeed, 3200); //2900 original
+        //DriveForwardDistance(TestSpeed, 600);
+        LiftUp(-LiftSpeed, 400);
+       // sleep(1000);
+       // LiftUp(LiftSpeed,-200);
 //        wrist.setPosition(0);
 //        sleep(1000);
 //        DriveForwardDistance(TestSpeed,-700);
@@ -71,7 +66,7 @@ public class GrabBlocksAuto extends LinearOpMode {
     }
 
     double TestSpeed = 0.7;
-    double LiftSpeed = 0.3;
+    double LiftSpeed = 0.4;
 
     public void DriveForward(double power) {
         fr.setPower(power);
@@ -245,24 +240,24 @@ public class GrabBlocksAuto extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_USING_ENCODERS);
     }
 
-//
-//public void LiftUp (double power, int distance) {
-//        lift.setMode(DcMotor.RunMode.RESET_ENCODERS);
-//
-//        lift.setTargetPosition(distance);
-//
-//        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//
-//        lift.setPower(power);
-//
-//        while (lift.isBusy() && lift.getCurrentPosition()>-distance) {
-//            telemetry.addData("setpoint",distance);
-//            telemetry.addData("liftPos", lift.getCurrentPosition());
-//            telemetry.update();
-//        }
-//        StopDriving();
-//        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODERS);
-//    }
+    public void LiftUp (double power, int distance) {
+        lift.setMode(DcMotor.RunMode.RESET_ENCODERS);
+
+        lift.setTargetPosition(distance);
+
+        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        lift.setPower(power);
+
+        while (lift.isBusy() && lift.getCurrentPosition()>-distance) {
+            telemetry.addData("setpoint",distance);
+        telemetry.addData("liftPos", lift.getCurrentPosition());
+        telemetry.update();
+        }
+        StopDriving();
+        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODERS);
+    }
+
 
     public void StopDriving() {
         DriveForward(0);

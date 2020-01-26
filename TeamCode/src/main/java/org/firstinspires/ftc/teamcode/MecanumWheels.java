@@ -132,16 +132,19 @@ public class MecanumWheels extends OpMode {
         if (lift.getCurrentPosition() > -2350 && gamepad2.right_stick_y < 0){
             lift.setPower(-gamepad2.right_stick_y);
             telemetry.addData("lift", "should be going up");
+            telemetry.addData("lift CurrentPosition", lift.getCurrentPosition());
             telemetry.addData("right_stick_y", gamepad2.right_stick_y);
             telemetry.addData("lift.getPower():", lift.getPower());
         } else if (lift.getCurrentPosition() < 0 && gamepad2.right_stick_y > 0) {
             lift.setPower(-gamepad2.right_stick_y);
             telemetry.addData("lift", "should be going down");
+            telemetry.addData("lift CurrentPosition", lift.getCurrentPosition());
             telemetry.addData("right_stick_y", gamepad2.right_stick_y);
             telemetry.addData("lift.getPower():", lift.getPower());
         } else {
             lift.setPower(0);
             telemetry.addData("lift", "should be going nowhere");
+            telemetry.addData("lift CurrentPosition", lift.getCurrentPosition());
             telemetry.addData("right_stick_y", gamepad2.right_stick_y);
             telemetry.addData("lift.getPower():", lift.getPower());
         }
@@ -149,10 +152,10 @@ public class MecanumWheels extends OpMode {
         /**Claw**/
             if (gamepad1.dpad_up) {
                 // Close
-                wrist.setPosition(1);
+                wrist.setPosition(0);
             } else if (gamepad1.dpad_down) {
                 // Open
-                wrist.setPosition(0);
+                wrist.setPosition(.4);
             }
         /**Extender**/
             if (gamepad2.dpad_down) {

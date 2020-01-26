@@ -20,8 +20,9 @@ public class StrafeLeftAuto extends LinearOpMode {
         bl.setDirection(DcMotorSimple.Direction.REVERSE);
 
         waitForStart();
+        sleep(15000  v);
         //Change Forward Distance Short = 200 Long = 1600
-        DriveForwardDistance(TestSpeed, 1600);
+        DriveForwardDistance(TestSpeed, 200);
         StrafeLeftDistance(TestSpeed,1200);
 
 
